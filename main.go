@@ -118,6 +118,31 @@ func main() {
 	migrateServiceCmd.Flags().StringP("allopt", "a", "", "all opt file")
 
 	rootCmd.AddCommand(migrateServiceCmd)
+
+	//cmctl remove
+	removeServiceCmd := &cobra.Command{
+		Use:  "remove",
+		Long: "Remove a service from a worker",
+		Run:  removeServiceFunction,
+	}
+
+	removeServiceCmd.Flags().StringP("worker_id", "w", "", "Worker name")
+	removeServiceCmd.Flags().StringP("service", "s", "", "Service name")
+
+	rootCmd.AddCommand(removeServiceCmd)
+
+	//cmctl stop
+	stopServiceCmd := &cobra.Command{
+		Use:  "stop",
+		Long: "Stop a service",
+		Run:  stopServiceFunction,
+	}
+
+	stopServiceCmd.Flags().StringP("worker_id", "w", "", "Worker name")
+	stopServiceCmd.Flags().StringP("service", "s", "", "Service name")
+
+	rootCmd.AddCommand(stopServiceCmd)
+
 	// Execute the application
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

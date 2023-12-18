@@ -145,6 +145,22 @@ func migrateServiceFunction(cmd *cobra.Command, args []string) {
 	sendRequest(url, &requestBody, "POST")
 }
 
+func removeServiceFunction(cmd *cobra.Command, args []string) {
+	service, _ := cmd.Flags().GetString("service")
+	worker, _ := cmd.Flags().GetString("worker_id")
+
+	url := "http+unix://man_sock/cm_manager/v1.0/remove/" + worker + "/" + service
+	sendRequest[demBody](url, nil, "DELETE")
+}
+
+func stopServiceFunction(cmd *cobra.Command, args []string) {
+	service, _ := cmd.Flags().GetString("service")
+	worker, _ := cmd.Flags().GetString("worker_id")
+
+	url := "http+unix://man_sock/cm_manager/v1.0/stop/" + worker + "/" + service
+	sendRequest[demBody](url, nil, "POST")
+}
+
 func parseMigrateBody(copt string, ropt string, sopt string, stop bool) migrateBody {
 	var mgr migrateBody
 	if copt != "" {
